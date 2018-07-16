@@ -1,0 +1,58 @@
+2018/06/21 14:24:15 [emerg] 1#1: host not found in upstream "fpm56:9000" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 14:39:17 [emerg] 1#1: host not found in upstream "fpm56:9000" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 14:44:26 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 15:15:17 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 15:35:06 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 16:38:10 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 16:45:45 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 16:47:52 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 17:17:45 [emerg] 1#1: host not found in upstream "fpm56:9001" in /etc/nginx/conf.d/dev.b2c.docker.conf:2
+2018/06/21 17:39:24 [error] 5#5: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.docker, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.6:9001", host: "dev.b2c.docker"
+2018/06/21 17:53:18 [error] 5#5: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.docker, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.5:9001", host: "dev.b2c.docker"
+2018/06/21 17:59:44 [error] 5#5: *7 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.docker, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.5:9001", host: "dev.b2c.docker"
+2018/06/21 17:59:50 [error] 5#5: *7 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.docker, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.5:9001", host: "dev.b2c.docker"
+2018/06/21 18:00:25 [error] 5#5: *7 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.docker, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.5:9001", host: "dev.b2c.docker"
+2018/06/21 19:44:10 [emerg] 1#1: duplicate upstream "php72" in /etc/nginx/conf.d/swoft.test.conf:1
+2018/06/21 19:47:49 [error] 6#6: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/21 19:48:00 [error] 6#6: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/21 19:48:59 [error] 6#6: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/21 19:52:18 [error] 6#6: *14 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/21 20:01:14 [error] 6#6: *15 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/21 20:48:04 [error] 6#6: *16 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/22 11:10:35 [error] 5#5: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/22 11:10:40 [error] 5#5: *4 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/22 13:30:15 [error] 6#6: *4 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/22 13:34:06 [error] 6#6: *5 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/22 13:37:13 [error] 5#5: *2 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/23 20:12:31 [error] 6#6: *52 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/23 20:26:50 [error] 6#6: *60 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/23 20:29:22 [error] 5#5: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/23 20:29:41 [error] 5#5: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/23 21:20:20 [emerg] 1#1: host not found in upstream "fpm72_2:9000" in /etc/nginx/conf.d/swoft.test.conf:2
+2018/06/25 11:14:06 [emerg] 1#1: host not found in upstream "fpm72_2:9000" in /etc/nginx/conf.d/swoft.test.conf:2
+2018/06/25 11:15:32 [emerg] 1#1: host not found in upstream "swoft:9000" in /etc/nginx/conf.d/swoft.test.conf:2
+2018/06/25 13:38:50 [emerg] 1#1: host not found in upstream "swoft:9000" in /etc/nginx/conf.d/swoft.test.conf:2
+2018/06/25 21:35:31 [error] 5#5: *2 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/25 21:37:47 [error] 6#6: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/25 21:42:10 [error] 6#6: *3 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/25 21:53:49 [error] 5#5: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/25 21:53:51 [error] 5#5: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/25 21:53:52 [error] 5#5: *1 directory index of "/app/swoft/" is forbidden, client: 172.17.0.1, server: swoft.test, request: "GET / HTTP/1.1", host: "swoft.test"
+2018/06/26 20:56:57 [emerg] 1#1: duplicate upstream "php72_1" in /etc/nginx/conf.d/dev.b2c.test.conf:1
+2018/06/26 20:59:31 [emerg] 1#1: duplicate upstream "php72_1" in /etc/nginx/conf.d/dev.b2c.test.conf:1
+2018/06/27 10:36:53 [emerg] 1#1: duplicate upstream "php72_1" in /etc/nginx/conf.d/dev.b2c.test.conf:1
+2018/06/27 15:29:49 [error] 5#5: *47 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.api, request: "GET /index-dev-local.php HTTP/1.1", upstream: "fastcgi://172.17.0.6:9000", host: "dev.b2c.api"
+2018/06/27 15:29:52 [error] 5#5: *47 connect() failed (111: Connection refused) while connecting to upstream, client: 172.17.0.1, server: dev.b2c.api, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.6:9000", host: "dev.b2c.api", referrer: "http://dev.b2c.api/index-dev-local.php"
+2018/06/29 17:16:11 [error] 5#5: *24 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 172.17.0.1, server: dev.b2c.api, request: "POST /test/sign?XDEBUG_SESSION_START=IDEA_DEBUG HTTP/1.1", upstream: "fastcgi://172.17.0.8:9000", host: "dev.b2c.api"
+2018/06/30 15:00:38 [warn] 5#5: *108 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/1/00/0000000001 while reading upstream, client: 172.17.0.1, server: dev.b2c.api, request: "GET /coin/get_list?appversion=2.2.0&os=h5&sign=0b89d85e5da271f4fc1e35ab32fa22a2 HTTP/1.1", upstream: "fastcgi://172.17.0.8:9000", host: "dev.b2c.api"
+2018/06/30 15:02:00 [warn] 5#5: *110 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/2/00/0000000002 while reading upstream, client: 172.17.0.1, server: dev.b2c.api, request: "GET /coin/get_list?appversion=2.2.0&os=h5&sign=0b89d85e5da271f4fc1e35ab32fa22a2 HTTP/1.1", upstream: "fastcgi://172.17.0.8:9000", host: "dev.b2c.api"
+2018/06/30 15:03:51 [warn] 5#5: *112 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/3/00/0000000003 while reading upstream, client: 172.17.0.1, server: dev.b2c.api, request: "GET /coin/get_list?appversion=2.2.0&os=h5&sign=0b89d85e5da271f4fc1e35ab32fa22a2 HTTP/1.1", upstream: "fastcgi://172.17.0.8:9000", host: "dev.b2c.api"
+2018/07/02 14:55:09 [error] 5#5: *76 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.17.0.1, server: dev.b2c.test, request: "GET /api.php?s=invoice/invoice/apply&invoice_kind=1&order_id=58820&user_id=132475 HTTP/1.1", upstream: "fastcgi://172.17.0.8:9000", host: "dev.b2c.test"
+2018/07/02 15:34:36 [emerg] 1#1: host not found in upstream "swoft" in /etc/nginx/conf.d/swoft.test.conf:22
+2018/07/02 15:36:46 [emerg] 1#1: host not found in upstream "swoft" in /etc/nginx/conf.d/swoft.test.conf:22
+2018/07/04 11:57:54 [error] 5#5: *1 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 172.23.0.1, server: dev.b2c.api, request: "POST /test/sign?XDEBUG_SESSION_START=PHPSTORM HTTP/1.1", upstream: "fastcgi://172.23.0.8:9000", host: "dev.b2c.api"
+2018/07/06 11:27:21 [error] 6#6: *264 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 172.23.0.1, server: dev.b2c.api, request: "GET /redpacket/get_red_packet?appversion=2.2.0&os=h5&rp_id=1939&XDEBUG_SESSION_START=PHPSTORM&sign=ba738c1ffee340018dda2992228cfe1d HTTP/1.1", upstream: "fastcgi://172.23.0.8:9000", host: "dev.b2c.api"
+2018/07/07 16:25:59 [emerg] 1#1: duplicate upstream "php_ci" in /etc/nginx/conf.d/memcache.local.conf:1
+2018/07/07 19:20:23 [error] 5#5: *26 directory index of "/app/phpmemcachedadmin/" is forbidden, client: 172.23.0.1, server: memcache.local, request: "GET / HTTP/1.1", host: "memcache.local"
+2018/07/11 19:59:11 [error] 5#5: *309 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 172.23.0.1, server: dev.b2c.api, request: "GET /prommjs/get_grade_list?appversion=2.2.0&os=h5&XDEBUG_SESSION_START=PHPSTORM&prom_id=27 HTTP/1.1", upstream: "fastcgi://172.23.0.7:9000", host: "dev.b2c.api"
+2018/07/13 12:07:20 [error] 5#5: *538 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 172.23.0.1, server: dev.b2c.api, request: "GET /promotion/bombscreen?appversion=2.2.0&os=h5&XDEBUG_SESSION_START=PHPSTORM&id=2 HTTP/1.1", upstream: "fastcgi://172.23.0.7:9000", host: "dev.b2c.api"

@@ -1,0 +1,112 @@
+version: '2'
+
+services:
+  data:
+    image: busybox:latest
+    volumes:
+      - ./www:/app
+    entrypoint: top
+
+  fpm72_1:
+    container_name: fpm72_1
+    build: ./php/php721
+    volumes_from:
+      - data
+    volumes:
+      - ./php/php721/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php/php721/php.ini:/usr/local/etc/php/php.ini
+    working_dir: /app
+    expose :
+      - '9000'
+    links:
+      - mysql:mysql
+      - redis:redis
+      - memcached:memcached
+    #environment:
+      #XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+  swoft:
+      container_name: swoft
+      build: ./php/swoft
+      volumes:
+        - ./php/swoft/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      ports :
+        - '8080:80'
+      volumes_from:
+         - data
+      stdin_open: true
+      tty: true
+      command: php /app/swoft/bin/swoft start
+  fpm56:
+    container_name: fpm56
+    build: ./php/php56
+    volumes_from:
+      - data
+    volumes:
+      - ./php/php56/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    working_dir: /app
+    expose :
+      - '9000'
+    links:
+      - mysql:mysql
+      - redis:redis
+      - memcached:memcached
+    #environment:
+      #XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+  nginx:
+    container_name: nginx
+      # Nginx 1.11.10: https://hub.docker.com/_/nginx/
+    build: ./nginx
+      # 将主机的 80 端口映射到容器的 80 端口
+    ports:
+      - "80:80"
+      # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+    volumes:
+      - ./www:/app
+      - ./sites:/etc/nginx/conf.d:ro
+      - ./logs:/var/log/nginx
+    links:
+      - fpm56
+      - swoft
+      - fpm72_1
+  mysql:
+      # mysql 5.7: https://hub.docker.com/_/mysql/
+    image: mysql:5.7
+      # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf/my.cnf:/etc/mysql/my.cnf
+      # 将主机的 3306 端口映射到容器的 3306 端口
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  #nodejs:
+    #build: ./nodejs/
+      # 将主机的 3004 端口映射到容器的 3004 端口
+    #ports:
+     # - "3004:3004"
+    #volumes:
+      #- ./www/nodejs:/app
+  redis:
+      # redis : https://hub.docker.com/_/redis/
+    image: redis
+      # 将主机的 6379 端口映射到容器的 6379 端口
+    ports:
+      - "6379:6379"
+      # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+    volumes:
+      - ./redis:/data
+      - ./redis/conf:/etc/redis
+  #python:
+    #build: ./python/
+    #ports:
+     # - "8000:8000"
+    #links:
+     # - mysql:mysql
+     # - redis:redis
+    #env_file: ./python/.env
+    #command: /code/manage.py runserver 0.0.0.0:8000
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
