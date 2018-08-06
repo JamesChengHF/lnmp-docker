@@ -34,18 +34,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug && pecl clear-cache
 
-# ftp
-RUN apt-get update \
-	&& apt-get install -y \
-	libssl-dev \
-	&& docker-php-ext-install -j$(nproc) \
-		ftp
-
-# ssh2
-RUN apt-get update \
-	&& apt-get install -y \
-	libssh2-1-dev
-
 # memcached
 RUN apt-get update \
 	&& apt-get install -y \
@@ -92,8 +80,10 @@ RUN wget https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_
 # 安装 composer 并设置中国源
 #####################################
 # 从国内镜像安装composer，并配置成默认从国内镜像安装composer包
-RUN php -r "readfile('http://install.phpcomposer.com/installer');" | php -- --install-dir=/bin/ --filename=composer
-RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+#RUN php -r "readfile('http://install.phpcomposer.com/installer');" | php -- --install-dir=/bin/ --filename=composer
+RUN wget https://dl.laravel-china.org/composer.phar -O /usr/local/bin/composer
+RUN chmod a+x /usr/local/bin/composer
+RUN composer config -g repo.packagist composer https://packagist.laravel-china.org
 
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

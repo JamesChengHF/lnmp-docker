@@ -39,21 +39,14 @@ RUN apt-get update && apt-get install -y \
           gd \
           exif
 
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer \
-    && composer self-update --clean-backups
-
-# ftp
-RUN apt-get update \
-	&& apt-get install -y \
-	libssl-dev \
-	&& docker-php-ext-install -j$(nproc) \
-		ftp
-
-# ssh2
-RUN apt-get update \
-	&& apt-get install -y \
-	libssh2-1-dev
+#####################################
+# 安装 composer 并设置中国源
+#####################################
+# 从国内镜像安装composer，并配置成默认从国内镜像安装composer包
+#RUN php -r "readfile('http://install.phpcomposer.com/installer');" | php -- --install-dir=/bin/ --filename=composer
+RUN wget https://dl.laravel-china.org/composer.phar -O /usr/local/bin/composer
+RUN chmod a+x /usr/local/bin/composer
+RUN composer config -g repo.packagist composer https://packagist.laravel-china.org
 
 # memcached
 RUN apt-get update \
@@ -98,13 +91,13 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.0.tar.gz -O swoole.ta
     && rm -r swoole \
     && docker-php-ext-enable swoole
 
-#ADD . /var/www/swoft
+ADD . /app/swoft
 
-#WORKDIR /app/swoft
+WORKDIR /app/swoft
 
-#RUN composer install --no-dev \
- #   && composer dump-autoload -o \
-  #  && composer clearcache
+RUN composer install --no-dev \
+    && composer dump-autoload -o \
+    && composer clearcache
 
 #EXPOSE 80
 
