@@ -7,51 +7,69 @@ services:
       - ./www:/app
     entrypoint: top
 
-  fpm72_1:
-    container_name: fpm72_1
-    build: ./php/php721
-    volumes_from:
-      - data
-    volumes:
-      - ./php/php721/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./php/php721/php.ini:/usr/local/etc/php/php.ini
-    working_dir: /app
-    expose :
-      - '9000'
-    links:
-      - mysql:mysql
-      - redis:redis
-      - memcached:memcached
+  #fpm71:
+  #  container_name: fpm71
+  #  build: ./php/php71
+  #  volumes_from:
+  #    - data
+  #  volumes:
+  #    - ./php/php71/www.conf:/usr/local/etc/php-fpm.d/www.conf
+  #    - ./php/php71/php.ini:/usr/local/etc/php/php.ini
+  #    - ./php/extensions:/usr/local/lib/php/extensions/no-debug-non-zts-20151012
+  #  working_dir: /app
+  #  expose :
+  #    - '9000'
+  #  links:
+  #    - mysql:mysql
+  #    - redis:redis
+  #    - memcached:memcached
+  #  stdin_open: true
+  #  tty: true
+    #environment:
+      #XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+  #fpm56:
+  #  container_name: php56
+  #  build: ./php/php56
+  #  volumes_from:
+  #    - data
+  #  volumes:
+  #    - ./php/php56/www.conf:/usr/local/etc/php-fpm.d/www.conf
+  #    - ./php/php56/php.ini:/usr/local/etc/php/php.ini
+  #    - ./php/extensions:/usr/local/lib/php/extensions/no-debug-non-zts-20151012
+  #  working_dir: /app
+  #  expose :
+  #    - '9000'
+  #  links:
+  #    - mysql:mysql
+  #    - redis:redis
+  #    - memcached:memcached
     #environment:
       #XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
   swoft:
       container_name: swoft
       build: ./php/swoft
+      working_dir: /app
+      expose :
+        - '9000'
+        - '80'
+      links:
+        - mysql:mysql
+        - redis:redis
+        - memcached:memcached
       volumes:
         - ./php/swoft/www.conf:/usr/local/etc/php-fpm.d/www.conf
+        - ./php/swoft/php.ini:/usr/local/etc/php/php.ini
+        - ./php/extensions:/usr/local/lib/php/extensions/no-debug-non-zts-20151012
       ports :
-        - '8080:80'
+        - '8080:8080'
       volumes_from:
          - data
       stdin_open: true
       tty: true
-      command: php /app/swoft/bin/swoft start
-  fpm56:
-    container_name: fpm56
-    build: ./php/php56
-    volumes_from:
-      - data
-    volumes:
-      - ./php/php56/www.conf:/usr/local/etc/php-fpm.d/www.conf
-    working_dir: /app
-    expose :
-      - '9000'
-    links:
-      - mysql:mysql
-      - redis:redis
-      - memcached:memcached
-    #environment:
-      #XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+      #command: php /app/swoft/bin/swoft start
+      networks:
+        frontweb:
+          ipv4_address: 172.18.0.3
   nginx:
     container_name: nginx
       # Nginx 1.11.10: https://hub.docker.com/_/nginx/
@@ -64,10 +82,70 @@ services:
       - ./www:/app
       - ./sites:/etc/nginx/conf.d:ro
       - ./logs:/var/log/nginx
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     links:
-      - fpm56
       - swoft
-      - fpm72_1
+      #- fpm71
+    networks:
+      frontweb:
+        ipv4_address: 172.18.0.4
+  # nginx-1:
+  #   container_name: nginx-1
+  #     # Nginx 1.11.10: https://hub.docker.com/_/nginx/
+  #   build: ./nginx
+  #     # 将主机的 80 端口映射到容器的 80 端口
+  #   ports:
+  #     - "8082:80"
+  #     # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+  #   volumes:
+  #     - ./www:/app
+  #     - ./sites:/etc/nginx/conf.d:ro
+  #     - ./logs:/var/log/nginx
+  #     - ./nginx/nginx-2.conf:/etc/nginx/nginx.conf
+  #   links:
+  #     - swoft
+  #     #- fpm71
+  #   networks:
+  #     frontweb:
+  #       ipv4_address: 172.18.0.41
+  # nginx-2:
+  #   container_name: nginx-2
+  #     # Nginx 1.11.10: https://hub.docker.com/_/nginx/
+  #   build: ./nginx
+  #     # 将主机的 80 端口映射到容器的 80 端口
+  #   ports:
+  #     - "8083:80"
+  #     # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+  #   volumes:
+  #     - ./www:/app
+  #     - ./sites:/etc/nginx/conf.d:ro
+  #     - ./logs:/var/log/nginx
+  #     - ./nginx/nginx-2.conf:/etc/nginx/nginx.conf
+  #   links:
+  #     - swoft
+  #     #- fpm71
+  #   networks:
+  #     frontweb:
+  #       ipv4_address: 172.18.0.42
+  # nginx-3:
+  #   container_name: nginx-3
+  #     # Nginx 1.11.10: https://hub.docker.com/_/nginx/
+  #   build: ./nginx
+  #     # 将主机的 80 端口映射到容器的 80 端口
+  #   ports:
+  #     - "8084:80"
+  #     # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+  #   volumes:
+  #     - ./www:/app
+  #     - ./sites:/etc/nginx/conf.d:ro
+  #     - ./logs:/var/log/nginx
+  #     - ./nginx/nginx-2.conf:/etc/nginx/nginx.conf
+  #   links:
+  #     - swoft
+  #     #- fpm71
+  #   networks:
+  #     frontweb:
+  #       ipv4_address: 172.18.0.43
   mysql:
       # mysql 5.7: https://hub.docker.com/_/mysql/
     image: mysql:5.7
@@ -80,6 +158,24 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
+    networks:
+      frontweb:
+        ipv4_address: 172.18.0.5
+  # mysql-2:
+  #     # mysql 5.7: https://hub.docker.com/_/mysql/
+  #   image: mysql:5.7
+  #     # 创建一个数据卷，由 ./images/nginx/config => /etc/nginx/conf.d
+  #   volumes:
+  #     - ./mysql/data2:/var/lib/mysql
+  #     - ./mysql/conf/my-2.cnf:/etc/mysql/my.cnf
+  #     # 将主机的 3306 端口映射到容器的 3306 端口
+  #   ports:
+  #     - "3307:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #   networks:
+  #     frontweb:
+  #       ipv4_address: 172.18.0.51
   #nodejs:
     #build: ./nodejs/
       # 将主机的 3004 端口映射到容器的 3004 端口
@@ -97,6 +193,9 @@ services:
     volumes:
       - ./redis:/data
       - ./redis/conf:/etc/redis
+    networks:
+      frontweb:
+        ipv4_address: 172.18.0.6
   #python:
     #build: ./python/
     #ports:
@@ -110,3 +209,36 @@ services:
     image: memcached
     ports:
       - "11211:11211"
+    networks:
+      frontweb:
+        ipv4_address: 172.18.0.7
+  #nodejs:
+   # container_name: nodejs
+   # user: "node"
+   # working_dir: /app
+   # build: ./nodejs
+   # environment:
+   #   - NODE_ENV=production
+   # ports:
+   #   - "8081:8080"
+   # command: "npm start"
+   # stdin_open: true
+   # tty: true
+   # networks:
+   #   frontweb:
+    #    ipv4_address: 172.18.0.8
+networks:
+  frontweb:
+    #driver: bridge
+    ipam:
+      driver: default   # 这里不能指定 bridge ， 否则无法创建
+      config:
+       - subnet: 172.18.0.0/16
+         gateway: 172.18.0.1
+         #aux_addresses:
+          #fpm71: 172.18.0.2
+          #swoft: 172.18.0.3
+          #nginx: 172.18.0.4
+          #mysql: 172.18.0.5
+          #redis: 172.18.0.6
+          #memcached: 172.18.0.7

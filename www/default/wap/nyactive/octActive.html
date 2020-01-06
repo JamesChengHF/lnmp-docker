@@ -10,7 +10,7 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="msapplication-tap-highlight" content="no" />
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
-<title>肆月嗨购季</title>
+<title>国庆·十一  火拼·来了</title>
 <link rel="stylesheet" type="text/css" href="../css/base.css">
 <link rel="stylesheet" type="text/css" href="../css/womenday.css">
 <link rel="stylesheet" type="text/css" href="../css/women_day.css">
@@ -18,8 +18,7 @@
 <body style="background: ;">
   <div class="womenday_box">
     <a class="rule_btn"></a>
-    <img src="../images/fouractive/ban_01.jpg" alt="">
-    <img src="../images/fouractive/ban_02.jpg" alt="">
+    <img src="../images/oct/hp1.jpg" alt="">
 
     <div class="womenday_ticket">
   
@@ -51,13 +50,8 @@
       <!-- pop end -->
   </div>
 <script id='redpacket'>
-      <img src="../images/fouractive/ban_04.png" alt="">
       <div class="fouractive">
           <div class="four_table">
-
-            <span <%if(redtype=='ten'){%>class="on"<%}%>  onclick="rob('ten')">10:00 准时开抢</span>
-          
-            <span <%if(redtype=='nine'){%>class="on"<%}%>   onclick="rob('nine')">19:00 准时开抢<%nineteen_show_status%></span>
 
           </div>
           <div class="fourCoupon">
@@ -159,8 +153,8 @@
   function list(redtype){
     var redtype = redtype? redtype:'';
        $.ajax({
-    url :ApiUrl + "/index.php?act=jx_home&op=for_huopin",
-    data : {redtype:redtype},
+    url :ApiUrl + "/index.php?act=jx_active&op=for_huopin",
+    data : {redtype:redtype,active_name:'国庆火拼商品'},
     type : 'post',
     dataType: 'json',
     success:function(result){

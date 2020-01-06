@@ -1,7 +1,12 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 ADD sources.list /etc/apt/sources.list
 
+# Timezone
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo 'Asia/Shanghai' > /etc/timezone
+
+# Libs
 RUN apt-get update && apt-get install -y \
         curl \
         wget \
@@ -16,9 +21,14 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng-dev \
         libicu-dev \
+        libz-dev \
+        libssl-dev \
+        libnghttp2-dev \
+        libpcre3-dev \
         && apt-get clean \
         && apt-get autoremove \
         && rm -r /var/lib/apt/lists/* \
+        && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         && docker-php-ext-install \
           bcmath \
           intl \
@@ -28,8 +38,7 @@ RUN apt-get update && apt-get install -y \
           pdo_mysql \
           zip \
           gd \
-          exif \
-          opcache
+          exif
 
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug && pecl clear-cache
@@ -101,6 +110,12 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Add configuration files
 #COPY supervisord.conf /etc/supervisor/conf.d/
+
+# 安装nodejs
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+  apt-get install -y nodejs
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 COPY ./php.ini /usr/local/etc/php/
 COPY ./www.conf /usr/local/etc/php/

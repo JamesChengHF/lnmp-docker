@@ -2,10 +2,6 @@ FROM php:7.2-fpm
 
 ADD sources.list /etc/apt/sources.list
 
-# Timezone
-RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo 'Asia/Shanghai' > /etc/timezone
-
 # Libs
 RUN apt-get update && apt-get install -y \
         curl \
@@ -28,6 +24,7 @@ RUN apt-get update && apt-get install -y \
         && apt-get clean \
         && apt-get autoremove \
         && rm -r /var/lib/apt/lists/* \
+        && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         && docker-php-ext-install \
           bcmath \
           intl \
@@ -37,7 +34,8 @@ RUN apt-get update && apt-get install -y \
           pdo_mysql \
           zip \
           gd \
-          exif
+          exif \
+          sysvmsg
 
 #####################################
 # 安装 composer 并设置中国源
@@ -48,19 +46,28 @@ RUN wget https://dl.laravel-china.org/composer.phar -O /usr/local/bin/composer
 RUN chmod a+x /usr/local/bin/composer
 RUN composer config -g repo.packagist composer https://packagist.laravel-china.org
 
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # memcached
 RUN apt-get update \
 	&& apt-get install -y \
 	libmemcached-dev \
-	libmemcached11
+	libmemcached11 \
+    && pecl install memcached \
+    # 启用扩展
+    && docker-php-ext-enable memcached
 
+#RUN pecl install memcache && docker-php-ext-enable memcache
 # Install PHPUnit
 RUN curl -OL https://phar.phpunit.de/phpunit.phar \
 	&& chmod 755 phpunit.phar \
 	&& mv phpunit.phar /usr/local/bin/ \
 	&& ln -s /usr/local/bin/phpunit.phar /usr/local/bin/phpunit
 
-# Redis extension
+#####################################
+# 安装 Redis 扩展
+#####################################
 RUN pecl install redis && docker-php-ext-enable redis && pecl clear-cache
 
 # Hiredis
@@ -75,6 +82,15 @@ RUN wget https://github.com/redis/hiredis/archive/v0.13.3.tar.gz -O hiredis.tar.
         && ldconfig \
     ) \
     && rm -r hiredis
+
+RUN wget https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.zip \
+    && mkdir -p memcache \
+    && unzip NON_BLOCKING_IO_php7.zip \
+    && rm NON_BLOCKING_IO_php7.zip \
+    && cd pecl-memcache-NON_BLOCKING_IO_php7 \
+    && /usr/local/bin/phpize \
+    && ./configure --with-php-config=/usr/local/bin/php-config && make && make install \
+    && docker-php-ext-enable memcache
 
 # Swoole extension
 RUN wget https://github.com/swoole/swoole-src/archive/v4.0.0.tar.gz -O swoole.tar.gz \
@@ -91,14 +107,29 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.0.tar.gz -O swoole.ta
     && rm -r swoole \
     && docker-php-ext-enable swoole
 
-ADD . /app/swoft
+# 安装nodejs
+# Install Node.js
+#RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+#  apt-get install -y nodejs
+#RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-WORKDIR /app/swoft
+COPY ./php.ini /usr/local/etc/php/
+COPY ./www.conf /usr/local/etc/php/
+COPY ./www.conf /usr/local/etc/php-fpm.d/
 
-RUN composer install --no-dev \
-    && composer dump-autoload -o \
-    && composer clearcache
+#ADD . /app/swoft
+
+#WORKDIR /app/swoft
+
+RUN apt-get purge -y g++ \
+    && apt-get autoremove -y \
+    #&& rm -r /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
+
+#RUN composer install --no-dev \
+#    && composer dump-autoload -o \
+#    && composer clearcache
 
 #EXPOSE 80
 
-CMD ["php", "/app/swoft/bin/swoft", "start"]
+#CMD ["php", "/app/swoft/bin/swoft", "start"]

@@ -1,0 +1,8 @@
+*.html
+*.log
+.idea/
+app/
+data/
+logs/
+mysql/data/
+www/
