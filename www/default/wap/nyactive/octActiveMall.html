@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1"/>
+    <title>冰霜盛夏 畅享低价</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/july.css">
+    <style>
+        #wx_share .wx_share_content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        #wx_share .wx_share_content .share_text {
+            width: 100%;
+            text-align: center;
+            line-height: 2rem;
+            font-size: 1rem;
+            color: #fff;
+        }
+        .goods-wrapper .btn-buy{
+            background: #00c5aa;
+        }
+        .goods-list li{
+            position: relative;
+        }
+        .goods-list li .jiaobiao{
+            width: 2.2rem;
+            position: absolute;
+            right: 3px;
+            top: 3px;
+        }
+    </style>
+</head>
+<body style="background: #add8e6;">
+<div id="women-day">
+    <!--顶部图片-->
+    <div class="top-wrapper">
+
+    </div>
+    <!--商品列表-->
+    <ul class="goods-list">
+
+
+
+    </ul>
+</div>
+<!-- pop -->
+<div class="pop-wrapper forcarpop2">
+    <div class="pop-window">
+        <div class="close_btn"><img src="../images/signIn/c_bg.png" alt=""></div>
+        <div class="rule-content-wrapper mall_pop" style="background: url(../images/july/rule_bg_mall.png);background-size: 100% 100%;border: none;color: #7aabd1;font-size: 0.7rem !important;height: 14rem;">
+            <div style="font-size: 0.75rem;color: #003b70;text-align: center;padding: 10px 0;font-weight: bold">活动规则</div>
+            <p style="margin-top: 0.85rem;">活动时间：7月1日-7月31日</p>
+            <p>• 每天早上10：00点、下午19：00点两个场次可以领取红包。</p>
+            <p>• 红包金额10元满99可用，20元满199可用。限商城使用。</p>
+            <p>• 红包数量有限，先到先得，领完为止，红包领取当日有效。</p>
+            <p>• 同类红包当日仅限领取1张，可转赠。</p>
+            <p >• 本活动最终解释权归极享生活所有。</p>
+        </div>
+    </div>
+</div>
+<div class="s-dialog-mask" style="display:none;"></div>
+<!-- pop end -->
+<!-- end -->
+<script id='redpack_list'>
+    <a  class="rule_btn"></a>
+        <img  class="img-bg" src="../images/july/header1.png" alt="">
+        <img  class="img-bg" src="../images/july/header2.png" alt="">
+        <div class="mallActive">
+        <span <%if(redtype=='ten'){%> class="on"  <%}%> onclick='rob("ten")'>10:00抢红包</span>
+    <span <%if(redtype=='nine'){%> class='on'<%}%>onclick='rob("nine")'>19:00抢红包</span>
+    </div>
+    <div class="mallCoupon">
+        <%if(redpack_list.length>0){%>
+    <%for(var i=0;i<redpack_list.length;i++){%>
+        <dl class="clearfix">
+            <dt class="price-wrapper">
+                <div>￥<em> <%=redpack_list[i].rpacket_t_price%></em></div>
+                <p class="cond">满<%=redpack_list[i].rpacket_t_limit%>元可用</p>
+            </dt>
+            <dd>
+                <%if(ten_show_status){%>
+            <span class="used">马上领取</span>
+                <%}else if(nineteen_show_status && redtype=='nine'){%>
+            <span class="used">马上领取</span>
+                <%}else if(redpack_list[i].redpack_status==1){%>
+            <span class="used">已抢光</span>
+                    <%}else if(redpack_list[i].redpack_status==2){%>
+            <span class="used">已领取</span>
+                    <%}else{%>
+            <span class='receive' t_id =<%=redpack_list[i].rpacket_t_id%>>马上领取</span>
+                    <%}%>
+        </dd>
+            </dl>
+            <%}}%>
+    </div>
+</script>
+<script id='goods_arr1'>
+    <%if(goods_list.length>0){%>
+    <%for(var i=0;i<goods_list.length;i++){%>
+        <li>
+            <div class="goods-wrapper">
+                <a href="../tmpl/product_detail.html?goods_id=<%=goods_list[i].goods_id%>"><img class="goods-image" src="<%=goods_list[i].goods_image%>"></a>
+                <div class="goods-name"><%=goods_list[i].goods_name%></div>
+                <div class="price-wrapper">
+                <span class="rmb">¥</span><span class="price-now"><%=goods_list[i].goods_price%></span><span class="price-old"><%=goods_list[i].goods_marketprice%></span>
+                </div>
+                <a href="../tmpl/product_detail.html?goods_id=<%=goods_list[i].goods_id%>"><pan class="btn-buy">点击购买</span></a>
+            </div>
+            </li>
+            <%}}%>
+</script>
+<script type="text/javascript" src="../js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="../js/layer/layer1.js"></script>
+<script type="text/javascript" src="../js/zepto.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/dropDown.js"></script>
+<script type="text/javascript" src="../js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+<script type="text/javascript" src="../js/share_wx.js"></script>
+<script>
+
+
+    var key=getQueryString('key')?getQueryString('key'):getCookie('key');
+    list();
+    function list(redtype){
+        var redtype = redtype? redtype:'';
+        $.ajax({
+            url : ApiUrl + "/index.php?act=jx_home&op=for_shop",
+            data : {redtype:redtype},
+            type : 'post',
+            dataType : 'json',
+            success:function(result){
+                var goods_html = template.render('goods_arr1',result.datas);
+                $('.goods-list').html(goods_html);
+                var redpack_html = template.render('redpack_list',result.datas);
+                $('.top-wrapper').html(redpack_html);
+                $('.rule_btn').click(function(){
+                    $('.pop-wrapper').show();
+                    $('.s-dialog-mask').show();
+                    $('html,body').css({"height":"100%", "overflow-y": "hidden"});
+                });
+                $('.close_btn').click(function(){
+                    $('.pop-wrapper').hide();
+                    $('.s-dialog-mask').hide();
+                    $('html,body').css({"height":"auto", "overflow-y": "auto"});
+                });
+                $('.receive').click(function(){
+                    if(!key){
+                        checkUnionLogin(0);
+                        return false;
+                    }
+                    var t_id = $(this).attr('t_id');
+                    $.ajax({
+                        url : ApiUrl + "/index.php?act=member_redpacket&op=getredpacketsave",
+                        data:{'tid':t_id,today_limit:1,key:key},
+                        dataType:'json',
+                        type:'post',
+                        success:function(msg){
+                            if(msg.datas=='红包领取成功'){
+                                layer.msg('红包领取成功');
+                                list(redtype);
+                            }else if(msg.datas=='红包已兑换完')
+                            {
+                                layer.msg('红包已领取完');
+                            }else if(msg.datas.indexOf('该红包您已兑换')!=-1){
+                                layer.msg('该红包已领取，明天再来吧。');
+                            }else if(msg.error=='请先登录！'){
+                                checkUnionLogin(0);
+                            }else{
+                                layer.msg(msg.datas);
+                            }
+                        }
+                    })
+                })
+            }
+        })
+    }
+
+    function rob(redtype){
+        list(redtype);
+    }
+    var shareUrl = window.location.href;
+    var shareUrl=encodeURIComponent(shareUrl);
+    var dataForWeixin = {
+        title: '放肆！长得好看的人，就这么嘚瑟啊！',
+        desc: '听说颜值不错的，领的红包都大！赶紧进来试试吧~',
+        imgUrl: 'https://'+window.location.host+'/wap/images/july/shared_mall.jpg',
+        link: shareUrl,
+        type1:'',
+    };
+    weixin_share(dataForWeixin);
+</script>
+</body>
+</html>
